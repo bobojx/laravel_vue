@@ -14,7 +14,6 @@
 /public/*.js
 /public/*.js.map
 .env
-.env.backup
 .idea
 .phpunit.result.cache
 Homestead.json
