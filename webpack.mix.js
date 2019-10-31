@@ -1,13 +1,13 @@
-const config = require('./webpack.config');
-const mix = require('laravel-mix');
-require('laravel-mix-eslint');
+const config = require('./webpack.config')
+const mix = require('laravel-mix')
+require('laravel-mix-eslint')
 
 function resolve(dir) {
   return path.join(
     __dirname,
-    '/resources/src',
-    dir,
-  );
+    '/resources/js',
+    dir
+  )
 }
 
 Mix.listen('configReady', webpackConfig => {
@@ -15,12 +15,12 @@ Mix.listen('configReady', webpackConfig => {
   const imageLoaderConfig = webpackConfig.module.rules.find(
     rule =>
       String(rule.test) ===
-      String(/(\.(png|jpe?g|gif|webp)$|^((?!font).)*\.svg$)/),
-  );
-  imageLoaderConfig.exclude = resolve('icons');
-});
+      String(/(\.(png|jpe?g|gif|webp)$|^((?!font).)*\.svg$)/)
+  )
+  imageLoaderConfig.exclude = resolve('icons')
+})
 
-mix.webpackConfig(config);
+mix.webpackConfig(config)
 
 /*
  |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ mix.webpackConfig(config);
  |
  */
 
-mix.js('resources/src/main.js', 'public/js').extract([
+mix.js('resources/js/main.js', 'public/js').extract([
   'vue',
   'axios',
   'vuex',
@@ -43,20 +43,20 @@ mix.js('resources/src/main.js', 'public/js').extract([
   'echarts',
   'highlight.js',
   'sortablejs',
-  'codemirror',
+  'codemirror'
 ]).options({
-  processCssUrls: false,
-});
+  processCssUrls: false
+})
 
 if (mix.inProduction()) {
-  mix.version();
+  mix.version()
 } else {
   if (process.env.LARAVUE_USE_ESLINT === 'true') {
-    mix.eslint();
+    mix.eslint()
   }
   // Development settings
   mix.sourceMaps()
     .webpackConfig({
-      devtool: 'cheap-eval-source-map', // Fastest for development
-    });
+      devtool: 'cheap-eval-source-map' // Fastest for development
+    })
 }

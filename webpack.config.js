@@ -1,32 +1,32 @@
-const path = require('path');
-require('webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const path = require('path')
+require('webpack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 function resolve(dir) {
   return path.join(
     __dirname,
-    '/resources/src',
-    dir,
-  );
+    '/resources/js',
+    dir
+  )
 }
 
-const rawArgv = process.argv.slice(2);
-rawArgv.join(' ');
-const report = rawArgv.includes('--report');
-const plugins = [];
+const rawArgv = process.argv.slice(2)
+rawArgv.join(' ')
+const report = rawArgv.includes('--report')
+const plugins = []
 if (report) {
   plugins.push(new BundleAnalyzerPlugin({
-    openAnalyzer: true,
-  }));
+    openAnalyzer: true
+  }))
 }
 module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      '@': path.join(__dirname, '/resources/src'),
-      '_c': path.join(__dirname, '/resources/src/components'),
-    },
+      '@': path.join(__dirname, '/resources/js'),
+      '_c': path.join(__dirname, '/resources/js/components')
+    }
   },
   module: {
     rules: [
@@ -35,10 +35,10 @@ module.exports = {
         loader: 'svg-sprite-loader',
         include: [resolve('icons')],
         options: {
-          symbolId: 'icon-[name]',
-        },
-      },
-    ],
+          symbolId: 'icon-[name]'
+        }
+      }
+    ]
   },
-  plugins: plugins,
-};
+  plugins: plugins
+}
